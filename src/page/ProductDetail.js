@@ -1,7 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Button, Dropdown } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
-  return <div>상품 상세 페이지</div>;
+  let { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const getProductDetail = async () => {
+    let url = `http://localhost:4000/products/${id}`;
+    let response = await fetch(url);
+    let data = await response.json();
+    console.log(data);
+    setProduct(data);
+  };
+  useEffect(() => {
+    getProductDetail();
+  }, []);
+  return (
+    <div>
+      <Container>
+        <Row>
+          <Col className='product-img'>
+            <img src={product?.img} />
+          </Col>
+          <Col>
+            <div>{product?.title}</div>
+            <div>{product?.price}</div>
+            <div className='choice'>
+              {product && product.choice ? 'Conscious choice' : ''}
+            </div>
+            <Dropdown className='drop-down'>
+              <Dropdown.Toggle variant='outline-dark' id='dropdown-basic'>
+                사이즈 선택
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                {product?.size.length > 0 &&
+                  product.size.map((item) => (
+                    <Dropdown.Item href='#/action-1'>{item}</Dropdown.Item>
+                  ))}
+              </Dropdown.Menu>
+            </Dropdown>
+            <Button variant='dark' className='add-button'>
+              추가
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
 };
 
 export default ProductDetail;

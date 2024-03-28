@@ -2,6 +2,7 @@
     display: flex;
     justify-content: flex-end;
     margin: 20px;
+    cursor : pointer;
 }
 
 .nav-section{
@@ -28,4 +29,29 @@
     position: absolute;
     right: 20px;
     padding: 5px;
+}
+
+input {
+    border: none;
+}
+
+.product-img{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.choice {
+    font-size: 11px;
+    color: #63786a;
+    font-weight: bold;
+    height: 20px;
+}
+
+.drop-down {
+    margin-top: 20px;
+}
+
+.add-button {
+    margin-top: 20px;
+    width: 100%;
 }
